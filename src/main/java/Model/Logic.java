@@ -22,7 +22,7 @@ public class Logic {
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()){
-                if(resultSet.getString(1)==login && resultSet.getString(2)==pass)
+                if((resultSet.getString(1).equals(login)) && (resultSet.getString(2).equals(pass)))
                     return true;
             }
         } catch (SQLException e) {

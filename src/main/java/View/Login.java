@@ -1,5 +1,7 @@
 package View;
 
+import Controller.LoginCtr;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,26 +14,28 @@ public class Login extends JFrame {
     JButton btnLogin, btnRegister;
     JTextField txtLogin;
     JPasswordField txtPass;
-    public Login(){
+    LoginCtr controller;
+
+    public Login(LoginCtr controller){
+        this.controller = controller;
         setSize(500,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         init();
-        setVisible(true);
         addListener();
 
 
     }
     void init(){
-        add(txtLogin = new JTextField());
-        add(txtPass = new JPasswordField());
-        add(btnLogin = new JButton());
-        add(btnRegister = new JButton());
+        add(txtLogin = new JTextField(12));
+        add(txtPass = new JPasswordField(12));
+        add(btnLogin = new JButton("Login"));
+        add(btnRegister = new JButton("Register"));
     }
     void addListener(){
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                controller.checkUser(txtLogin.getText(), new String(txtPass.getPassword()));
             }
         });
     }
