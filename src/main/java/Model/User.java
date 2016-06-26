@@ -12,4 +12,5 @@ abstract public class User {
         this.password = password;
         this.status = status;
     }
+
 }
