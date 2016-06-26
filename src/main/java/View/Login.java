@@ -26,16 +26,23 @@ public class Login extends JFrame {
 
 
     }
-    void init(){
+    private void init(){
         add(txtLogin = new JTextField(12));
         add(txtPass = new JPasswordField(12));
         add(btnLogin = new JButton("Login"));
         add(btnRegister = new JButton("Register"));
     }
-    void addListener(){
+    private void addListener(){
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.checkUser(txtLogin.getText(), new String(txtPass.getPassword()));
+            }
+        });
+
+        btnRegister.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.goRegister("register");
             }
         });
     }

@@ -31,4 +31,8 @@ public class Logic {
 
         return false;
     }
+    public void registerUser(String login,String pass, String name, String status){
+
+    }
+
 }
