@@ -15,7 +15,7 @@ public class LoginCtr {
     }
 
     public void checkUser(String login, String pass){
-        System.out.println(logic.checkUser(login,pass));
+        System.out.println(logic.checkUser(login));
     }
 
     public void goRegister(String status){
