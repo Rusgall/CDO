@@ -76,6 +76,19 @@ public class Logic {
             e.printStackTrace();
         }
     }
+    public void addQuestion(String question, String answer, String subject){
+        try {
+            System.out.println("Logic");
+            PreparedStatement statement = dBcdo.getConnection().
+                    prepareStatement("Insert into cdo.questions (Question, Answer, Subject) values (?,?,?);");
+            statement.setString(1,question);
+            statement.setString(2,answer);
+            statement.setString(3,subject);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private User createUser(ResultSet resultSet){
         try {

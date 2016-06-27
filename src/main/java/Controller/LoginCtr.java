@@ -19,8 +19,6 @@ public class LoginCtr {
         if(logic.checkUser(login,pass)){
             goUser(logic.getUser(login));
         }
-
-
     }
 
     public void goNext(String status){
