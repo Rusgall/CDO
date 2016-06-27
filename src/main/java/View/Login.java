@@ -35,14 +35,14 @@ public class Login extends JFrame {
     private void addListener(){
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.checkUser(txtLogin.getText(), new String(txtPass.getPassword()));
+                controller.enter(txtLogin.getText(),new String(txtPass.getPassword()));
             }
         });
 
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.goRegister("register");
+                controller.goNext("Register");
             }
         });
     }

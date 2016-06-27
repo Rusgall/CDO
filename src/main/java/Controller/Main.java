@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Logic;
+import View.AdminPanel;
 import View.Login;
 import View.Register;
 
@@ -14,6 +15,7 @@ public class Main implements FormManager{
 
     Login login;
     Register register;
+    AdminPanel adminPanel;
 
     RegisterCtr registerCtr;
     LoginCtr loginCtr;
@@ -26,6 +28,7 @@ public class Main implements FormManager{
 
         login = new Login(loginCtr);
         register = new Register(registerCtr);
+        adminPanel = new AdminPanel();
 
         login.setVisible(true);
     }
@@ -42,11 +45,14 @@ public class Main implements FormManager{
         falseVisible();
 
         switch (status){
-            case "login":
+            case "Login":
                 login.setVisible(true);
                 break;
-            case  "register":
+            case "Register":
                 register.setVisible(true);
+                break;
+            case "Admin":
+                adminPanel.setVisible(true);
                 break;
             default:
                 System.out.println("Error");
@@ -56,5 +62,6 @@ public class Main implements FormManager{
     public void falseVisible(){
         login.setVisible(false);
         register.setVisible(false);
+        adminPanel.setVisible(false);
     }
 }

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Logic;
+import Model.User;
 
 /**
  * Created by Руслан on 26.06.2016.
@@ -14,11 +15,19 @@ public class LoginCtr {
         this.manager = manager;
     }
 
-    public void checkUser(String login, String pass){
-        System.out.println(logic.checkUser(login));
+    public void enter(String login, String pass){
+        if(logic.checkUser(login,pass)){
+            goUser(logic.getUser(login));
+        }
+
+
     }
 
-    public void goRegister(String status){
+    public void goNext(String status){
         manager.toggle(status);
     }
+    public void goUser(User user){
+        manager.toggle(user.getStatus());
+    }
+
 }
