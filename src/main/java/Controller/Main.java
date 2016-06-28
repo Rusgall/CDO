@@ -1,10 +1,8 @@
 package Controller;
 
 import Model.Logic;
-import View.AdminPanel;
-import View.Login;
-import View.Register;
-import View.TeacherPanel;
+import Model.User;
+import View.*;
 
 import javax.swing.*;
 
@@ -13,16 +11,20 @@ import javax.swing.*;
  */
 public class Main implements FormManager{
     Logic logic;
+    User user;
 
     Login login;
     Register register;
     AdminPanel adminPanel;
     TeacherPanel teacherPanel;
+    StudentPanel studentPanel;
+
 
     RegisterCtr registerCtr;
     LoginCtr loginCtr;
     AdminCtr adminCtr;
     TeacherCtr teacherCtr;
+    StudentCtr studentCtr;
 
     Main(){
         logic = new Logic();
@@ -31,12 +33,14 @@ public class Main implements FormManager{
         registerCtr = new RegisterCtr(logic, this);
         adminCtr = new AdminCtr(logic, this);
         teacherCtr = new TeacherCtr(logic, this);
+        studentCtr = new StudentCtr(logic, this);
 
 
         login = new Login(loginCtr);
         register = new Register(registerCtr);
         adminPanel = new AdminPanel(adminCtr);
         teacherPanel = new TeacherPanel(teacherCtr);
+        studentPanel = new StudentPanel(studentCtr);
 
         login.setVisible(true);
     }
@@ -65,6 +69,9 @@ public class Main implements FormManager{
             case "Teacher":
                 teacherPanel.setVisible(true);
                 break;
+            case "Student":
+                studentPanel.setVisible(true);
+                break;
             default:
                 System.out.println("Error");
         }
@@ -74,5 +81,15 @@ public class Main implements FormManager{
         login.setVisible(false);
         register.setVisible(false);
         adminPanel.setVisible(false);
+        teacherPanel.setVisible(false);
+        studentPanel.setVisible(false);
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public User getUser(){
+        return user;
     }
 }

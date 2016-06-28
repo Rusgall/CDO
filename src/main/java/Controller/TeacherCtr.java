@@ -17,11 +17,20 @@ public class TeacherCtr {
     }
 
     public void addQuestion(String question, String answer, String subject, TeacherPanel teacherPanel){
+        System.out.println(subject);
         if(!subject.equals("Empty")) {
-            logic.addQuestion(question, answer, subject);
+            if(!logic.checkQuestion(question,subject)){
+                logic.addQuestion(question, answer, subject);
+                teacherPanel.label.setText("Добавлен вопрос");
+            }
+            else teacherPanel.label.setText("Такой вопрос уже есть");
         }else teacherPanel.label.setText("Выберите предмет");
 
 
 
+    }
+
+    public void goNext(String status){
+        manager.toggle(status);
     }
 }

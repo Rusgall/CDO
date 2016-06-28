@@ -1,8 +1,31 @@
 package Model;
 
 /**
- * Created by Руслан on 27.06.2016.
+ * Created by Руслан on 28.06.2016.
  */
-public enum Subject {
-    Subject01, Subject02, Subject03, Subject04, Subject05;
+public class Subject {
+    public String getName() {
+        return name;
+    }
+
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    String name;
+    boolean passed;
+    int rating;
+
+    public Subject(String name, int rating ){
+        this.name = name;
+        this.rating = rating;
+        if(rating!=0)
+            passed = true;
+        else passed = false;
+    }
+
 }

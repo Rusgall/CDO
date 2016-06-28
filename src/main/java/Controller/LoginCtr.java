@@ -9,6 +9,7 @@ import Model.User;
 public class LoginCtr {
     Logic logic;
     FormManager manager;
+    User user;
 
     public LoginCtr(Logic logic, FormManager manager){
         this.logic = logic;
@@ -17,7 +18,9 @@ public class LoginCtr {
 
     public void enter(String login, String pass){
         if(logic.checkUser(login,pass)){
-            goUser(logic.getUser(login));
+            user = logic.getUser(login);
+            manager.setUser(user);
+            goUser(user);
         }
     }
 

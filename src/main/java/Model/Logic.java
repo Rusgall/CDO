@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Created by Руслан on 26.06.2016.
@@ -48,6 +49,22 @@ public class Logic {
 
         return false;
     }
+    public boolean checkQuestion(String question, String subject){
+        String query = "select * from cdo.questions";
+        try {
+            Statement statement = dBcdo.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()){
+                if((resultSet.getString(1).equals(question))&&(resultSet.getString(3).equals(subject)))
+                    return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
     public User getUser(String login){
         try {
@@ -78,7 +95,6 @@ public class Logic {
     }
     public void addQuestion(String question, String answer, String subject){
         try {
-            System.out.println("Logic");
             PreparedStatement statement = dBcdo.getConnection().
                     prepareStatement("Insert into cdo.questions (Question, Answer, Subject) values (?,?,?);");
             statement.setString(1,question);
@@ -96,8 +112,14 @@ public class Logic {
 
             if (resultSet.getString(4).equals("Admin"))
                 return new Admin(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4));
-            if (resultSet.getString(4).equals("Student"))
-                return new Student(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4));
+            if (resultSet.getString(4).equals("Student")){
+                ArrayList<Subject> subjects = new ArrayList<>();
+                for(int i = 0; i < 5; i++){
+                    subjects.add(new Subject("Subject0"+(i+1),resultSet.getInt(resultSet.getInt(i+5))));
+                }
+                return new Student(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),subjects);
+
+            }
             if (resultSet.getString(4).equals("Teacher"))
                 return new Teacher(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4));
 

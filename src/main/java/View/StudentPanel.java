@@ -1,0 +1,50 @@
+package View;
+
+import Controller.StudentCtr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+/**
+ * Created by Руслан on 28.06.2016.
+ */
+public class StudentPanel extends JFrame {
+    StudentCtr controller;
+    ArrayList<JRadioButton> btnSubject;
+    ArrayList<String> subjects;
+    JButton btnStart;
+    ButtonGroup bg;
+
+    public StudentPanel(StudentCtr controller){
+        this.controller = controller;
+        setSize(500,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        init();
+        addListener();
+    }
+
+    private void init(){
+        subjects = controller.getNames();
+        bg = new ButtonGroup();
+        for(String name:subjects)
+            btnSubject.add(new JRadioButton(name));
+        for(JRadioButton btn:btnSubject){
+            add(btn);
+            bg.add(btn);
+        }
+        add(btnStart = new JButton("Start"));
+    }
+    private void addListener(){
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+}
