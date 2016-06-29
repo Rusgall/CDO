@@ -5,7 +5,7 @@ package Model;
  */
 public class Teacher extends User {
 
-    public Teacher(String name, String login, String password, String status) {
+    public Teacher(String login, String password, String name, String status) {
         super(name, login, password, status);
     }
 

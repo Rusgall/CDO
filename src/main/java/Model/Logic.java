@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Руслан on 26.06.2016.
@@ -79,6 +80,19 @@ public class Logic {
 
         return null;
     }
+    public ArrayList<Question> getQuestion(String subject){
+        try {
+            PreparedStatement statement = dBcdo.getConnection().prepareStatement("select * from cdo.questions where Subject = ?");
+            statement.setString(1,subject);
+            ResultSet resultSet = statement.executeQuery();
+            return randomQuestions(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 
     public void registerUser(String login,String pass, String name, String status){
         try {
@@ -105,6 +119,20 @@ public class Logic {
             e.printStackTrace();
         }
     }
+    public void addRating(Student student){
+        try {
+            PreparedStatement statement = dBcdo.getConnection().
+                    prepareStatement("update cdo.user set "+student.getCurrentSubject()+" = ? where login = ?;");
+            statement.setInt(1,student.getRightAnswer());
+            statement.setString(2,student.getLogin());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(Subject subject:student.getSubjects())
+            if(student.getCurrentSubject().equals(subject.getName()))
+                subject.setPassed(true);
+    }
 
     private User createUser(ResultSet resultSet){
         try {
@@ -115,7 +143,7 @@ public class Logic {
             if (resultSet.getString(4).equals("Student")){
                 ArrayList<Subject> subjects = new ArrayList<>();
                 for(int i = 0; i < 5; i++){
-                    subjects.add(new Subject("Subject0"+(i+1),resultSet.getInt(resultSet.getInt(i+5))));
+                    subjects.add(new Subject("Subject0"+(i+1),resultSet.getInt(i+5)));
                 }
                 return new Student(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),subjects);
 
@@ -127,6 +155,20 @@ public class Logic {
             e.printStackTrace();
         }
         return null;
+    }
+    private ArrayList<Question> randomQuestions(ResultSet resultSet){
+        ArrayList<Question> questions = new ArrayList<>();
+        try {
+            while(resultSet.next())
+                questions.add(new Question(resultSet.getString(1),resultSet.getString(2)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Question> randomQuestions = new ArrayList<>();
+        final Random random = new Random();
+        for(int i = 0; i < 5; i++)
+            randomQuestions.add(questions.get(random.nextInt(questions.size())));
+        return  randomQuestions;
     }
 
 }

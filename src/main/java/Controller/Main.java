@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Logic;
+import Model.Student;
 import Model.User;
 import View.*;
 
@@ -18,6 +19,7 @@ public class Main implements FormManager{
     AdminPanel adminPanel;
     TeacherPanel teacherPanel;
     StudentPanel studentPanel;
+    QuestionPanel questionPanel;
 
 
     RegisterCtr registerCtr;
@@ -25,6 +27,7 @@ public class Main implements FormManager{
     AdminCtr adminCtr;
     TeacherCtr teacherCtr;
     StudentCtr studentCtr;
+    QuestionCtr questionCtr;
 
     Main(){
         logic = new Logic();
@@ -34,13 +37,13 @@ public class Main implements FormManager{
         adminCtr = new AdminCtr(logic, this);
         teacherCtr = new TeacherCtr(logic, this);
         studentCtr = new StudentCtr(logic, this);
+        questionCtr = new QuestionCtr(logic, this);
 
 
         login = new Login(loginCtr);
         register = new Register(registerCtr);
         adminPanel = new AdminPanel(adminCtr);
         teacherPanel = new TeacherPanel(teacherCtr);
-        studentPanel = new StudentPanel(studentCtr);
 
         login.setVisible(true);
     }
@@ -70,7 +73,14 @@ public class Main implements FormManager{
                 teacherPanel.setVisible(true);
                 break;
             case "Student":
+                studentCtr.setStudent(getUser());
+                studentPanel = new StudentPanel(studentCtr);
                 studentPanel.setVisible(true);
+                break;
+            case "Question":
+                questionCtr.setStudent(getUser());
+                questionPanel = new QuestionPanel(questionCtr);
+                questionPanel.setVisible(true);
                 break;
             default:
                 System.out.println("Error");
@@ -82,7 +92,7 @@ public class Main implements FormManager{
         register.setVisible(false);
         adminPanel.setVisible(false);
         teacherPanel.setVisible(false);
-        studentPanel.setVisible(false);
+        //studentPanel.setVisible(false);
     }
 
     public void setUser(User user){

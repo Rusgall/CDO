@@ -17,7 +17,6 @@ public class TeacherCtr {
     }
 
     public void addQuestion(String question, String answer, String subject, TeacherPanel teacherPanel){
-        System.out.println(subject);
         if(!subject.equals("Empty")) {
             if(!logic.checkQuestion(question,subject)){
                 logic.addQuestion(question, answer, subject);

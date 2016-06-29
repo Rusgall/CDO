@@ -3,6 +3,8 @@ package Controller;
 import Model.Logic;
 import Model.Student;
 import Model.Subject;
+import Model.User;
+import View.StudentPanel;
 
 import java.util.ArrayList;
 
@@ -14,10 +16,14 @@ public class StudentCtr {
     Logic logic;
     Student student;
 
+    public void setStudent(User user) {
+        student = (Student) user;
+        System.out.println(student.getSubjects().get(2).isPassed());
+    }
+
     public StudentCtr(Logic logic, FormManager manager){
         this.logic = logic;
         this.manager = manager;
-        student = (Student) manager.getUser();
     }
 
     public ArrayList<String> getNames(){
@@ -28,7 +34,12 @@ public class StudentCtr {
         }
         return names;
     }
-    public void goStart(String subject){
+    public void goStart(String subject, StudentPanel studentPanel){
+        if(!subject.equals("Empty")){
+            student.setCurrentSubject(subject);
+            studentPanel.setVisible(false);
+            manager.toggle("Question");
+        }else studentPanel.label.setText("Выберите предмет");
 
     }
 }

@@ -22,7 +22,7 @@ abstract public class User {
         return status;
     }
 
-    public User(String name, String login, String password, String status){
+    public User(String login, String password, String name, String status){
         this.name = name;
         this.login = login;
         this.password = password;
