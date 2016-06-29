@@ -20,6 +20,7 @@ public class Main implements FormManager{
     TeacherPanel teacherPanel;
     StudentPanel studentPanel;
     QuestionPanel questionPanel;
+    ResultPanel resultPanel;
 
 
     RegisterCtr registerCtr;
@@ -28,6 +29,7 @@ public class Main implements FormManager{
     TeacherCtr teacherCtr;
     StudentCtr studentCtr;
     QuestionCtr questionCtr;
+    ResultCtr resultCtr;
 
     Main(){
         logic = new Logic();
@@ -38,6 +40,7 @@ public class Main implements FormManager{
         teacherCtr = new TeacherCtr(logic, this);
         studentCtr = new StudentCtr(logic, this);
         questionCtr = new QuestionCtr(logic, this);
+        resultCtr = new ResultCtr(logic, this);
 
 
         login = new Login(loginCtr);
@@ -81,6 +84,11 @@ public class Main implements FormManager{
                 questionCtr.setStudent(getUser());
                 questionPanel = new QuestionPanel(questionCtr);
                 questionPanel.setVisible(true);
+                break;
+            case "Result":
+                resultCtr.setStudent(getUser());
+                resultPanel = new ResultPanel(resultCtr);
+                resultPanel.setVisible(true);
                 break;
             default:
                 System.out.println("Error");

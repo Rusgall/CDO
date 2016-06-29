@@ -42,4 +42,8 @@ public class StudentCtr {
         }else studentPanel.label.setText("Выберите предмет");
 
     }
+
+    public void goNext(String status){
+        manager.toggle(status);
+    }
 }

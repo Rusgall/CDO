@@ -124,14 +124,20 @@ public class Logic {
             PreparedStatement statement = dBcdo.getConnection().
                     prepareStatement("update cdo.user set "+student.getCurrentSubject()+" = ? where login = ?;");
             statement.setInt(1,student.getRightAnswer());
+            System.out.println(student.getRightAnswer());
             statement.setString(2,student.getLogin());
+            System.out.println(student.getLogin());
+            System.out.println(student.getCurrentSubject());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         for(Subject subject:student.getSubjects())
-            if(student.getCurrentSubject().equals(subject.getName()))
+            if(student.getCurrentSubject().equals(subject.getName())){
                 subject.setPassed(true);
+                subject.setRating(student.getRightAnswer());
+            }
+
     }
 
     private User createUser(ResultSet resultSet){

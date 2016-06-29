@@ -16,6 +16,10 @@ public class Subject {
         return rating;
     }
 
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public void setPassed(boolean passed) {
         this.passed = passed;
     }

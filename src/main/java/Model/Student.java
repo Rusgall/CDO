@@ -15,7 +15,7 @@ public class Student extends User {
     ArrayList<Subject> subjects;
 
     public Student(String login, String password, String name, String status,ArrayList<Subject> subjects) {
-        super(name, login, password, status);
+        super(login, password, name, status);
         this.subjects = subjects;
     }
 

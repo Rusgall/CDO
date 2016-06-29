@@ -15,7 +15,7 @@ public class StudentPanel extends JFrame {
     StudentCtr controller;
     ArrayList<JRadioButton> btnSubject;
     ArrayList<String> subjects;
-    JButton btnStart;
+    JButton btnStart, btnResult;
     ButtonGroup bg;
     public JLabel label;
 
@@ -41,6 +41,7 @@ public class StudentPanel extends JFrame {
             bg.add(btn);
         }
         add(btnStart = new JButton("Start"));
+        add(btnResult = new JButton("Result"));
     }
     private void addListener(final StudentPanel studentPanel){
         btnStart.addActionListener(new ActionListener() {
@@ -53,6 +54,12 @@ public class StudentPanel extends JFrame {
                 }
 
                 controller.goStart(subject,studentPanel);
+            }
+        });
+        btnResult.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.goNext("Result");
             }
         });
     }
